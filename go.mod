@@ -1,6 +1,6 @@
 module github.com/dfuse-io/opaque
 
-go 1.14
+go 1.13
 
 require (
 	github.com/dfuse-io/logging v0.0.0-20200406213449-45fc25dc6a8d

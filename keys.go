@@ -18,26 +18,58 @@ var opaqueCursorEncryptionKey = [32]byte{0x7b, 0xfc, 0xac, 0xee, 0x25, 0x74, 0x0
 // But in this case we mostly care of obscuring / making opaque the key
 var fixedNonce = [24]byte{0x26, 0x15, 0x54, 0xc4, 0x5a, 0xb9, 0xb7, 0x52, 0xab, 0xad, 0x4f, 0x19, 0xc2, 0x42, 0x60, 0x57, 0x2, 0xd5, 0x5a, 0x0d, 0x91, 0x61, 0x6a, 0x1b}
 
-// ToOpaque obfuscates (encrypts) internal keys to be used as
+// Encode obfuscates (encrypts) internal keys to be used as
 // pagination cursors sent to frontend
-func ToOpaque(internalKey string) (string, error) {
-	var nonce [24]byte
-	copy(nonce[:], fixedNonce[:])
-	ciphertext := secretbox.Seal(nonce[:], []byte(internalKey), &nonce, &opaqueCursorEncryptionKey)
-	return base64.URLEncoding.EncodeToString(ciphertext[24:]), nil
+func Encode(internalKey []byte) string {
+	ciphertext := secretbox.Seal(nil, internalKey, &fixedNonce, &opaqueCursorEncryptionKey)
+	return base64.URLEncoding.EncodeToString(ciphertext)
 }
 
-// FromOpaque de-obfuscates (decrypts) internal keys to be used as
+// EncodeString obfuscates (encrypts) internal keys to be used as
 // pagination cursors sent to frontend
-func FromOpaque(opaqueKey string) (string, error) {
+func EncodeString(internalKey string) string {
+	return Encode([]byte(internalKey))
+}
+
+// Decode de-obfuscates (decrypts) internal keys to be used as
+// pagination cursors sent to frontend
+func Decode(opaqueKey string) ([]byte, error) {
 	ciphertext, err := base64.URLEncoding.DecodeString(opaqueKey)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	plaintext, ok := secretbox.Open(nil, ciphertext, &fixedNonce, &opaqueCursorEncryptionKey)
 	if !ok {
-		return "", errors.New("decryption failed")
+		return nil, errors.New("decryption failed")
 	}
-	return string(plaintext), nil
+
+	return plaintext, nil
+}
+
+// DecodeToString de-obfuscates (decrypts) internal keys to be used as
+// pagination cursors sent to frontend
+func DecodeToString(opaqueKey string) (string, error) {
+	out, err := Decode(opaqueKey)
+	if err != nil {
+		return "", err
+	}
+
+	return string(out), nil
+}
+
+// ToOpaque obfuscates (encrypts) internal keys to be used as
+// pagination cursors sent to frontend
+//
+// Deprecated: Use EncodeString instead.
+func ToOpaque(internalKey string) (string, error) {
+	return EncodeString(internalKey), nil
+}
+
+// FromOpaque de-obfuscates (decrypts) internal keys to be used as
+// pagination cursors sent to frontend
+//
+// Deprecated: Use DecodeToString instead.
+func FromOpaque(opaqueKey string) (string, error) {
+	return DecodeToString(opaqueKey)
 }
