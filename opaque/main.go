@@ -9,7 +9,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/dfuse-io/logging"
-	"github.com/dfuse-io/opaque"
+	"github.com/streamingfast/opaque"
 	"github.com/manifoldco/promptui"
 )
 

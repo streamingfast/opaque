@@ -1,10 +1,10 @@
-# dfuse Opaque library
+# StreamingFast Opaque library
 
-[![reference](https://img.shields.io/badge/godoc-reference-5272B4.svg?style=flat-square)](https://pkg.go.dev/github.com/dfuse-io/opaque)
+[![reference](https://img.shields.io/badge/godoc-reference-5272B4.svg?style=flat-square)](https://pkg.go.dev/github.com/streamingfast/opaque)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Encrypt plaintexts for simple obfuscation, like database cursors.
-It is used in **[dfuse](https://github.com/dfuse-io/dfuse)**.
+It is used in **[StramingFast](https://github.com/streamingfast/streamingfast)**.
 
 ## Usage
 
@@ -35,13 +35,17 @@ Decode opaque element into a proto message:
 ## Contributing
 
 **Issues and PR in this repo related strictly to the opaque library.**
+**Issues and PR in this repo related strictly to the opaque libraryffuse.**
 
 Report any protocol-specific issues in their
-[respective repositories](https://github.com/dfuse-io/dfuse#protocols)
+[respective repositories](https://github.com/streamingfast/streamingfast#protocols)
 
 **Please first refer to the general
-[dfuse contribution guide](https://github.com/dfuse-io/dfuse/blob/master/CONTRIBUTING.md)**,
+[StreamingFast contribution guide](https://github.com/streamingfast/streamingfast/blob/master/CONTRIBUTING.md)**,
 if you wish to contribute to this code base.
+
+This codebase uses unit tests extensively, please write and run tests.
+
 
 ## License
 

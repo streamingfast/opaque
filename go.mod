@@ -1,6 +1,6 @@
-module github.com/dfuse-io/opaque
+module github.com/streamingfast/opaque
 
-go 1.13
+go 1.15
 
 require (
 	github.com/dfuse-io/logging v0.0.0-20200406213449-45fc25dc6a8d
