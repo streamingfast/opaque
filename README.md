@@ -35,7 +35,6 @@ Decode opaque element into a proto message:
 ## Contributing
 
 **Issues and PR in this repo related strictly to the opaque library.**
-**Issues and PR in this repo related strictly to the opaque libraryffuse.**
 
 Report any protocol-specific issues in their
 [respective repositories](https://github.com/streamingfast/streamingfast#protocols)
